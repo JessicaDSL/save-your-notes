@@ -70,7 +70,7 @@ Parâmetros:
 **TODO List**
 
  - [x] Configurar o ambiente de desenvolvimento
- - [ ] Inicializar o projeto Node.js
+ - [x] Inicializar o projeto Node.js
  - [ ] Configurar o SQLite e Sequelize
  - [ ] Criar o modelo de banco de dados para notas e usuários
  - [ ] Implementar o endpoint de cadastro de nota
