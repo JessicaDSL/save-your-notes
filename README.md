@@ -71,7 +71,7 @@ Parâmetros:
 
  - [x] Configurar o ambiente de desenvolvimento
  - [x] Inicializar o projeto Node.js
- - [ ] Configurar o SQLite e Sequelize
+ - [x] Configurar o SQLite
  - [ ] Criar o modelo de banco de dados para notas e usuários
  - [ ] Implementar o endpoint de cadastro de nota
  - [ ] Implementar o endpoint de listagem de notas com paginação
@@ -79,3 +79,4 @@ Parâmetros:
  - [ ] Adicionar validações e tratamento de erros
  - [ ] Escrever testes unitários
  - [ ] Escrever a documentação da API
+ - [ ] Api com swagger para testar

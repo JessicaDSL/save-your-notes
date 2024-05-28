@@ -1,4 +1,4 @@
-import db from './db.js'
+import db from '../config/db.js'
 
 db.all('SELECT * FROM "notes-project"', (err, rows) => {
   if (err) {
