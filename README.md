@@ -72,7 +72,7 @@ Parâmetros:
  - [x] Configurar o ambiente de desenvolvimento
  - [x] Inicializar o projeto Node.js
  - [x] Configurar o SQLite
- - [ ] Criar o modelo de banco de dados para notas e usuários
+ - [X] Criar o modelo de banco de dados para notas e usuários - UM PARA MUTOS, E MUITOS PARA UM
  - [ ] Implementar o endpoint de cadastro de nota
  - [ ] Implementar o endpoint de listagem de notas com paginação
  - [ ] Implementar autenticação básica de usuário
