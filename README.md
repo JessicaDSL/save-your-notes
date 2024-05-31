@@ -38,14 +38,14 @@ npm install
 
 3. Configure o banco de dados SQLite:
 
-A configuração padrão já está pronta para uso. Se desejar, você pode alterar as configurações no arquivo **`config/database.js`**.
+A configuração padrão já está pronta para uso. Se desejar, você pode alterar as configurações no arquivo **config/database.js**.
 
 Inicie o servidor:
 ```
 npm start
 ```
 
-O servidor estará rodando na porta 3000. Você pode acessar via **`http://localhost:3000`**.
+O servidor estará rodando na porta 4200. Você pode acessar via **http://localhost:4200**.
 
 
 ## Endpoints
