@@ -16,10 +16,10 @@ db.all('SELECT * FROM "notas"', (err, rows) => {
     console.error('Erro ao buscar as notas', err.message);
     return;
   }
-  console.log('Notas encontradas:', rows)
+  console.log('Notas encontradas:', rows) 
 })
 
-app.post('/notas', (req, res) => {kl
+app.post('/notas', (req, res) => {
   const { title, message, user_id } = req.body;
 
   if (!title || !message || !user_id) {
@@ -27,15 +27,17 @@ app.post('/notas', (req, res) => {kl
   }
 
   const query = `
-    INSERT INTO notas (title, message, user_id)
-    VALUES (?, ?, ?)
+    INSERT INTO notas (title, message, user_id, data_createdAt)
+    VALUES (?, ?, ?, ?)
   `;
 
-  db.run(query, [title, message, user_id], function (err) {
+  const currentData = new Date().toISOString();
+
+  db.run(query, [title, message, user_id, currentData], function (err) {
     if (err) {
       return res.status(500).json({ error: err.message });
     }
-    res.status(201).json({ id: this.lastID, title, message, user_id, data_createdAt: new Date() });
+    res.status(201).json({ id: this.lastID, title, message, user_id,  data_createdAt: currentData });
   });
 });
 
