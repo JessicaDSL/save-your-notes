@@ -6,7 +6,6 @@ import bcrypt from 'bcrypt';
 const app = express();
 const PORT = 4200;
 
-// Middleware para analisar JSON
 app.use(express.json());
 
 app.get('/', (req, res) => {
