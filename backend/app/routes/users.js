@@ -55,10 +55,7 @@ router.get('/', async(req, res) => {
 
 router.post('/login', async (req, res) => {
   const { email, senha } = req.body;
-
-  if(!email || !senha) {
-    return res.status(400).json({error: 'Todos os campos são obrigatorios'})
-  }
+  console.log(email)
 
   const query = `
     SELECT * FROM users WHERE email = ?
@@ -66,18 +63,32 @@ router.post('/login', async (req, res) => {
 
   try {
     const db = await initializateDB();
-    const user= db.get(query, [email]);
+    
+    db.get(query, [email], (err, user) => {
+      if (err) {
+        return res.status(500).json({ error: err.message });
+      }
+    
+      if(!user) {
+        return res.status(400).json({error: 'Todos os campos são obrigatorios'})
+      }
+      
+      const passwHashed = bcrypt.compareSync(senha, user.senha);
+      if(!passwHashed) {
+        return res.status(401).json({error: "Credenciais inválidas"})
+      }
 
-    if(!user || !bcrypt.compareSync(senha, user.senha)) {
-      return res.status(401).json({error: "Credenciais inválidas"})
-    }
+      console.log('####user####', user);
 
-    res.cookie('user_id', user.id, {httpOnly: true});
-    res.json({message: 'Login bem sucedido!'})
+      res.cookie('user_id', user.id, {httpOnly: true});
+      res.json({message: 'Login bem sucedido!'})
+
+    });
   } catch (err) {
     res.status(500).json({error: err.message})
   }
-})
+});
+
 
 router.post('/logout', (req, res) => {
   res.clearCookie('user_id');
