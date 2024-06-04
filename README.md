@@ -74,7 +74,7 @@ Parâmetros:
  - [x] Configurar o SQLite
  - [X] Criar o modelo de banco de dados para notas e usuários - UM PARA MUTOS, E MUITOS PARA UM
  - [x] Implementar o endpoint de cadastro de nota
- - [ ] Implementar o endpoint de listagem de notas com paginação
+ - [x] Implementar o endpoint de listagem de notas com paginação
  - [x] Implementar autenticação básica de usuário
  - [ ] Adicionar validações e tratamento de erros
  - [ ] Escrever testes unitários

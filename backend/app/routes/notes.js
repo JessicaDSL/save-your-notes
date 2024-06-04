@@ -43,18 +43,41 @@ router.get('/', authenticate, async (req, res) => {
 })
 
 router.get('/note-by-user', authenticate, async (req, res) => {
-  console.log(req)
-  const user_id = req.user_id;
+  console.log(req.query.offset)
+  const user_id =  req.user.id;
+  let offset = parseInt(req.query.offset) || 0;
+  let limit = parseInt(req.query.limit) || 10;
+
+  if(limit > 10 ) {
+    limit = 10;
+  } else if (limit < 1) {
+    limit = 1
+  }
 
   try {
     const db = await initializateDB();
-    db.all('SELECT * FROM notas WHERE user_id = ?', [user_id], (err, rows) => {
+    db.all('SELECT * FROM notas WHERE user_id = ? LIMIT ? OFFSET ?', [user_id, limit, offset], (err, rows) => {
       if(err) {
         console.error('Erro ao buscar notas: ', err.message);
         return res.status(500).json({error: 'Erro ao buscar as notas'});
       }
-      console.log('user id', user_id)
-      res.status(200).json({json: rows})
+
+      db.get('SELECT COUNT(*) AS count FROM notas WHERE user_id = ?', [user_id], (err, result) => {
+        if(err) {
+          console.error('Erro ao buscar notas: ', err.message);
+          return res.status(500).json({error: 'Erro ao buscar as notas'});
+        }
+        console.log('result: ', result, 'rows: ', rows)
+        const response = {
+          offset: offset,
+          limit: limit,
+          total_notes: result.count,
+          notes: rows
+        }
+        console.log('user id', user_id)
+        res.status(200).json({response})
+      })
+      
     })
   } catch (err) {
     console.error('Erro ao iniciar o banco de dados:', err.message);
