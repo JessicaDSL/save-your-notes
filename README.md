@@ -76,7 +76,5 @@ Parâmetros:
  - [x] Implementar o endpoint de cadastro de nota
  - [x] Implementar o endpoint de listagem de notas com paginação
  - [x] Implementar autenticação básica de usuário
- - [ ] Adicionar validações e tratamento de erros
- - [ ] Escrever testes unitários
- - [ ] Escrever a documentação da API
- - [ ] Api com swagger para testar
+ - [x] Escrever a documentação da API
+ - [x] Api com swagger para testar
