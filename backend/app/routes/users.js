@@ -4,6 +4,46 @@ import { initializateDB } from '../config/db.js';
 
 const router = express.Router();
 
+/**
+ *@swagger
+ *tags:
+ *  name: Usuarios
+ *  description: Gerenciamento de usuários
+ */
+
+/**
+ * @swagger
+ * /users/register:
+ *   post:
+ *     summary: Registra um novo usuário
+ *     tags: [Usuarios]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - username
+ *               - email
+ *               - senha
+ *             properties:
+ *               username:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               senha:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Usuário registrado com sucesso
+ *       400:
+ *         description: Campos obrigatórios faltando
+ *       500:
+ *         description: Erro interno do servidor
+ */
+
+
 router.post('/register', async (req, res) => {
   const { username, email, senha } = req.body;
 
@@ -36,6 +76,32 @@ router.post('/register', async (req, res) => {
 //   console.log('Notas encontradas:', rows) 
 // })
 
+/**
+ * @swagger
+ * /users:
+ *  get:
+ *    summary: Recupera lista dos dados dos usuarios
+ *    tags: [Usuarios]
+ *    responses:
+ *      200:
+ *        description: Lista de usuarios
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: array
+ *              items:
+ *                type: object
+ *                propierties:
+ *                  id:
+ *                    type: integer
+ *                  username:
+ *                    type: string
+ *                  email:
+ *                    type: string
+ *    500:
+ *      description: Erro no servidor
+ */
+
 router.get('/', async(req, res) => {
   try {
     const db = await initializateDB();
@@ -44,13 +110,46 @@ router.get('/', async(req, res) => {
         console.error('Erro ao buscar os usuários', err.message);
         return;
       }
-      console.log('Usuários encontradas:', rows) 
+      console.log('Usuários encontradas:', rows);
+      res.status(200).json({rows}) 
     })
   } catch (err) {
     console.error('Erro ao iniciar o banco de dados no user: ', err.message);
     res.status(500).json({error: 'Erro interno do servidor'})
   }
 })
+
+
+/**
+ * @swagger
+ * /users/login:
+ *  post:
+ *    summary: Login do usuario
+ *    tags: [Usuarios]
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            required: true
+ *              - email
+ *              - senha
+ *            properties:
+ *              email:
+ *                type: string
+ *              senha:
+ *                type: string
+ *    responses:
+ *      200:
+ *        description: Login bem-sucedido
+ *      400:
+ *        description: Campos obrigatorios faltando
+ *      401:
+ *        description: Credenciais invalidas
+ *      500:
+ *        description: Erro interno do servidor    
+ */
 
 
 router.post('/login', async (req, res) => {
@@ -89,6 +188,19 @@ router.post('/login', async (req, res) => {
   }
 });
 
+
+/**
+ * @swagger
+ * /users/logout:
+ *  post:
+ *    summary: Desconectar login do usuario
+ *    tags: [Usuarios]
+ *    responses:
+ *      200:
+ *        description: Logout bem sucedido
+ *      500:
+ *        description: Erro interno do servidor
+ */
 
 router.post('/logout', (req, res) => {
   res.clearCookie('user_id');
