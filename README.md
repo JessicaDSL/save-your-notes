@@ -8,7 +8,7 @@ Este é um projeto de backend desenvolvido com Node.js e SQLite para gerenciar n
 * Node.js
 * Express.js
 * SQLite
-* Sequelize (ORM para Node.js)
+* Swagger
 
 ## Funcionalidades
 
@@ -50,6 +50,10 @@ O servidor estará rodando na porta 4200. Você pode acessar via **http://localh
 
 
 ## Endpoints
+
+### Teste com Swagger
+/api-docs
+
 ### Usuarios
 **Cadastro de usuarios**
 **POST /register**
