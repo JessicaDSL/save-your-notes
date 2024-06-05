@@ -42,13 +42,33 @@ A configuração padrão já está pronta para uso. Se desejar, você pode alter
 
 Inicie o servidor:
 ```
-npm start
+cd app
+npm app.js
 ```
 
 O servidor estará rodando na porta 4200. Você pode acessar via **http://localhost:4200**.
 
 
 ## Endpoints
+### Usuarios
+**Cadastro de usuarios**
+**POST /register**
+
+- body:
+* **username** (string): Nome do usuario
+*  **email** (string): Email do usuario
+*  **senha** (string): Senha do usuario
+
+**GET /users**
+* Resgata os usuarios cadastrados
+
+**POST /login**
+* **email** (string): Email do usuario
+* **senha** (string): Senha do usuario
+
+**POST /logout**
+* Desconecta o login do usuario
+
 ### Cadastro de Nota
 **POST /notes**
 
