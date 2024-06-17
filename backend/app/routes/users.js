@@ -1,8 +1,13 @@
 import express from 'express';
 import bcrypt from 'bcrypt';
 import { initializateDB } from '../config/db.js';
+import jwt from 'jsonwebtoken'
+import authenticate from '../auth/auth.js';
+import cookieParser from 'cookie-parser';
 
 const router = express.Router();
+router.use(cookieParser());
+const secretKey = 'secret'
 
 /**
  *@swagger
@@ -179,7 +184,8 @@ router.post('/login', async (req, res) => {
 
       console.log('####user####', user);
 
-      res.cookie('user_id', user.id, {httpOnly: true});
+      const token = jwt.sign({ id: user.id, username: user.username, email: user.email}, secretKey, {expiresIn: '1h'});
+      res.cookie('token', token, {httpOnly: true});
       res.json({message: 'Login bem sucedido!'})
 
     });
@@ -203,7 +209,7 @@ router.post('/login', async (req, res) => {
  */
 
 router.post('/logout', (req, res) => {
-  res.clearCookie('user_id');
+  res.clearCookie('token');
   res.json({message: 'Logout bem sucedido!'})
 })
 

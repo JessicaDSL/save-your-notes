@@ -78,3 +78,6 @@ Parâmetros:
  - [x] Implementar autenticação básica de usuário
  - [x] Escrever a documentação da API
  - [x] Api com swagger para testar
+ - [x] Usar Token com JWT
+ - [ ] renovação do teken de 30 minutos
+ - [ ] variavel de ambiente
