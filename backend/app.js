@@ -5,9 +5,11 @@ import userRoutes from '../backend/app/routes/users.js';
 import noteRoutes from '../backend/app/routes/notes.js';
 import { setupSwagger } from '../backend/app/swagger/swagger.js';
 import dotenv from 'dotenv';
+import redis from 'redis';
+import expressRedisCache from 'express-redis-cache';
 dotenv.config();
 
-
+const REDIS_URL = process.env.REDIS_URL;
 const PORT = process.env.PORT;
 console.log(PORT)
 
@@ -27,6 +29,23 @@ app.use('/users', (req, res, next) => {
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
+
+const redisCliente = redis.createClient({ url: REDIS_URL});
+const cache = expressRedisCache({
+  client: redisCliente,
+  prefix: 'notes',
+  expire: 3600
+})
+
+redisCliente.on('error', (err) => {
+  console.error('Erro ao conectar ao Redis', err);
+});
+
+redisCliente.on('connect', () => {
+  console.log('Conectado ao Redis');
+});
+
+app.use('/notes', cache.route());
 
 app.use('/users', userRoutes);
 app.use('/notes', noteRoutes);
