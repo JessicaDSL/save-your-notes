@@ -2,6 +2,8 @@
 
 
 Este é um projeto de backend desenvolvido com Node.js e SQLite para gerenciar notas pessoais. O objetivo é permitir o cadastro e listagem de notas, garantindo que cada usuário tenha acesso apenas às suas próprias notas. A listagem é paginada, permitindo um máximo de 10 notas por página.
+Caso queira acompanhar como será o frontend da aplicação, já desenvolvi no figma:
+[Projeto no Figma](https://www.figma.com/design/nC9XrJTpxY8QvMpghfU6Lr/Untitled?node-id=0-1&t=X5wR73HHMTRNX2x1-1)
 
 ## Tecnologias Utilizadas
 
